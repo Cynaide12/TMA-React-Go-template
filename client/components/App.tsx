@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { IndexPage } from '../pages/IndexPage/IndexPage';
+import { UserPage } from '../pages/UserPage/UserPage';
 import { LearnPage } from '../pages/LearnPage/LearnPage';
 import { Layout } from "./Layout/Layout";
 import { ContextProvider } from "../context/isMiniAppContext"
@@ -17,11 +18,11 @@ export const App = () => {
           element: <IndexPage />
         },
         {
-          path: "/learn-page",
-          element: <LearnPage />
+          path: "/user",
+          element: <UserPage />
         },
         {
-          path: "/user",
+          path: "/learn-page",
           element: <LearnPage />
         },
       ]

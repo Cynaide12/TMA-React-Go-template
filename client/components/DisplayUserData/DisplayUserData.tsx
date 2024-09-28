@@ -16,6 +16,7 @@ export const DisplayUserData = () => {
 
         const { id, username, photoUrl } = initData.user
 
+        console.log(initDataRaw)
         return [
             { title: "id", value: id.toString() },
             { title: "username", value: username },

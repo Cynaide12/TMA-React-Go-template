@@ -16,6 +16,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
             changePlatform(res ? "tma" : "web")
         }
         CheckIsTMA()
+
     }, [])
 
     if (!isMiniApp) {

@@ -4,6 +4,7 @@ import (
 	"tapp_server/cmd/bot"
 	"tapp_server/internal/config"
 	"tapp_server/internal/handlers"
+	"tapp_server/internal/routes"
 
 	tele "gopkg.in/telebot.v3"
 )
@@ -16,6 +17,8 @@ func main() {
 	}
 
 	initHandlers(&Tapp)
+	routesHandler := routes.NewRoutesHandler(&Tapp)
+	routesHandler.InitRoutes()
 	Tapp.Bot.Start()
 	defer Tapp.Bot.Stop()
 }
