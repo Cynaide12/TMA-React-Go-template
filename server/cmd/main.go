@@ -18,7 +18,7 @@ func main() {
 
 	initHandlers(&Tapp)
 	routesHandler := routes.NewRoutesHandler(&Tapp)
-	routesHandler.InitRoutes()
+	go routesHandler.InitRoutes()
 	Tapp.Bot.Start()
 	defer Tapp.Bot.Stop()
 }

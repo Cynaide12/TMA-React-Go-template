@@ -13,9 +13,14 @@ import (
 func AuthMiddleware(botToken string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
+			fmt.Print(r.Body)
 			fmt.Print(r.Header.Get("Authorization"))
 			data := strings.Split(r.Header.Get("Authorization"), " ")
+			fmt.Print(r.Header.Get("Authorization"))
+			if len(data) < 2 {
+				w.WriteHeader(http.StatusUnauthorized)
+				return
+			} 
 			// _ := data[0]
 			authData := data[1]
 

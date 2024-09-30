@@ -6,6 +6,7 @@ import (
 	auth "tapp_server/internal/middleware"
 
 	"github.com/go-chi/chi/v5"
+	// "github.com/rs/cors"
 )
 
 func NewRoutesHandler(bot *bot.Tapp) *Handler {
@@ -17,7 +18,7 @@ func NewRoutesHandler(bot *bot.Tapp) *Handler {
 func (h *Handler)InitRoutes() {
 	r := chi.NewRouter()
 
-	r.Use(auth.AuthMiddleware(h.Bot.Bot.Token))
+	r.Use(auth.CorsMiddleware, auth.AuthMiddleware(h.Bot.Bot.Token))
 
 	r.Post("/tap_validate", func(w http.ResponseWriter, r *http.Request) {
 		Authorization(w, r, h)

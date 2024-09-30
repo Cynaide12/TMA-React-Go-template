@@ -7,7 +7,7 @@ import {
     useThemeParams,
     useViewport,
     useLaunchParams,
-    retrieveLaunchParams
+    retrieveLaunchParams,
 } from '@telegram-apps/sdk-react';
 import { AppRoot } from '@telegram-apps/telegram-ui';
 import axios from "axios";
@@ -19,7 +19,7 @@ export const MiniAppProvider: FC<MiniAppProviderProps> = ({ children }) => {
     const miniApp = useMiniApp();
     const themeParams = useThemeParams();
     const viewport = useViewport();
-    const initDataRaw = retrieveLaunchParams()
+    const { initDataRaw } = retrieveLaunchParams()
 
     useEffect(() => {
         return bindMiniAppCSSVars(miniApp, themeParams);
@@ -34,15 +34,23 @@ export const MiniAppProvider: FC<MiniAppProviderProps> = ({ children }) => {
     }, [viewport]);
 
     useEffect(() => {
-        console.log(initDataRaw)
         const validateInitData = async () => {
-
-            const res = await axios.post("http://localhost:8080/tap_validate", initDataRaw.initDataRaw, {
+            interface ValidateResponse {
+                valid: string
+            }
+            const res = await axios.post<ValidateResponse>("http:localhost:8080/tap_validate", initDataRaw, {
                 headers: {
                     Authorization: `tma ${initDataRaw}`
                 }
+            }).then((e) => {
+                if (!e.data.valid) {
+                    alert("пиздюшня")
+                }
+            }).catch((e) => {
+                console.error(e)
             })
-            console.log(res)
+            console.log(initDataRaw)
+
         }
         validateInitData()
     }, [])
